@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<style>
+		div{
+			background:rgba(0,19,50,1.00);
+			background-repeat: no-repeat;
+			width: 400px;
+			height: 500px;
+			border-radius: 20px;
+		}
+		
+		button{
+			opacity: 0.8;
+			width: 100%;
+			height: 100%;
+			border-radius: 12px;
+			color: white;
+			font-size:25px;
+			margin-left: 15px;
+			margin-top: 10px;
+			background:url()
+			}
+		caption{
+			color: white;
+			font-size: 35px;
+			margin-top: 50px;
+			text-shadow: 2px 3px 4px white;
+			
+		}
+		button.op{
+			background-color:chocolate;
+			
+		}
+		p{
+			color: white;
+			text-align: right;
+			font-size:20px;
+			margin: 25px;
+			
+		}
+	</style>
+	
+	
+	
+	<script>
+		var opPlaced = false;
+		var storedNum = "";
+		var currentNum = "";
+		var operation = 0;
+		
+	function numPressed(num){
+		
+		var display = document.getElementById("display");
+		if(storedNum != 0 && operation != 0){
+			display.value = "";
+		}
+		if(display.value == 0){
+			display.value = "";
+			
+		}
+			display.value += num;
+	}
+	function Clear() {
+		document.getElementById("display").value = "0";
+		currentNum = "";
+		operation = 0;
+		storedNum = "";
+	}
+	function flip(){
+		var display = document.getElementById("display");
+		currentNum = display.value;
+		currentNum = 0 - currentNum;
+		document.getElementById("display").value = currentNum;
+	}
+	function opPressed(opcode){
+		
+		
+		if(storedNum != null && operation != 0){
+			calculate();
+		}
+		var display = document.getElementById("display");
+		storedNum = parseFloat(display.value);//Getting first number
+		 if(opcode == '+'){
+			operation = 1;
+		}else if(opcode == '-'){
+			operation = 2;
+		}else if(opcode  == '*'){
+			operation = 3;
+		}else if (opcode == '/'){
+			operation = 4;
+		}
+	}
+	function decimal(){
+		var display = document.getElementById("display");
+		currentNum = display.value;
+		for(i = 0; i <= currentNum.length; i++) {
+        if(currentNum.substr(i, 1) == "."){
+            return false;
+        };
+    };
+    currentNum = currentNum + ".";
+    document.getElementById("display").value = currentNum;
+	}
+	function calculate() {
+		var display = document.getElementById("display");
+		currentNum = parseFloat(display.value)
+		
+		var z = document.getElementById("display");
+			if(operation == 1){
+				z.value = currentNum + storedNum;
+			}else if(operation == 2) {
+				z.value = storedNum - currentNum;
+			}else if(operation == 3) {
+				z.value = currentNum * storedNum;
+			}else if(operation == 4) {
+				z.value = currentNum / storedNum;
+			}
+			operation = null;
+			storedNum = null;
+			currentNum = null;
+			
+		}
+	</script>
+</head>
+
+<body>
+	
+	<div>
+	<table>
+		<caption>JavaScript Calculator</caption>
+		
+	<tr>
+		<td colspan="4"><input style = "width:360px; height: 50px; margin-top:10px;margin-left: 10px;  border-radius: 20px; opacity: 0.8; font-size: 30px; color: black; text-align: right;" type="text" name="display" id="display"></td>
+	  </tr>
+	<tr>
+		<td><button value="1" onClick="numPressed(1)">1</button></td>
+		<td><button value="2" onClick="numPressed(2)">2</button></td>
+		<td><button value="3" onClick="numPressed(3)">3</button></td>
+		<td><button value = "+"  class = "op" onClick="opPressed('+')">+</button></td>
+		</tr>
+		<tr>
+		<td><button value="4" onClick="numPressed(4)">4</button></td>
+		<td><button value="5" onClick="numPressed(5)">5</button></td>
+		<td><button value="6" onClick="numPressed(6)">6</button></td>
+		<td><button value="-"  class = "op" onClick="opPressed('-')">-</button></td>
+		</tr>
+		<tr>
+		<td><button value="7" onClick="numPressed(7)">7</button></td>
+		<td><button value="8" onClick="numPressed(8)">8</button></td>
+		<td><button value="9" onClick="numPressed(9)">9</button></td>
+		<td><button value="*" class = "op" onClick="opPressed('*')">*</button></td>
+		</tr>
+		<tr>
+		<td><button value="0" onClick="numPressed(0)">0</button></td>
+		<td><button value="." onClick="decimal()">.</button></td>
+		<td><button style="font-size: 11px;" onClick="flip()">+/-</button></td>
+		<td><button value="/" class = "op" onClick="opPressed('/')">/</button></td>
+		</tr>
+		<tr>
+		<td colspan="2"><button value = "C" style = "background-color:lightslategrey" onClick="Clear()">C</button></td>
+		
+		<td colspan="2"><button value="=" style = "background-color:lightslategrey" onClick="calculate()">=</button></td>
+		
+		</tr>
+		
+		</table>
+		<p>By Mengjing Lu</p>
+		</div>
+</body>
+</html>
